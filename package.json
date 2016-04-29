@@ -1,0 +1,43 @@
+{
+  "name": "fairweatherhikers",
+  "version": "0.0.1",
+  "description": "Choose your hiking trail based on weather conditions",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cliffhangerz/fairweatherhikers.gi"
+  },
+  "keywords": [],
+  "author": {
+    "name": "Gene Troy",
+    "email": ""
+  },
+  "contributors": [
+    {
+      "name": "Ali Forman",
+      "email": ""
+    },
+    {
+      "name": "Tim Forman",
+      "email": ""
+    },
+    {
+      "name": "James Norton",
+      "email": ""
+    }
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cliffhangerz/fairweatherhikers/issues"
+  },
+  "homepage": "https://github.com/cliffhangerz/fairweatherhikers",
+  "Dependencies": {
+    "express": "^4.13.4"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1"
+  }
+}
