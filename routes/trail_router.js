@@ -5,5 +5,5 @@ const bodyParser = require('body-parser').json();
 
 trailRouter.get('/', (req, res) => {
 
-  res.status(200).json({msg: 'Howdy Pardner!!'})
+  res.status(200).json({ msg: 'Howdy Pardner!!' });
 });
