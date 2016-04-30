@@ -43,10 +43,11 @@
     "mocha": "^2.4.5"
   },
   "dependencies": {
-    "express": "^4.13.4",
-    "forecastio": "1.0.1",
     "bcrypt": "latest",
     "body-parser": "^1.15.0",
-    "jsonwebtoken": "^6.1.1"
+    "express": "^4.13.4",
+    "forecastio": "1.0.1",
+    "jsonwebtoken": "^6.1.1",
+    "mongoose": "^4.4.14"
   }
 }
