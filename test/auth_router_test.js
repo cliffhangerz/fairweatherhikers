@@ -5,7 +5,7 @@ const expect = chai.expect;
 const request = chai.request;
 const main = require(__dirname + '/test_server');
 const origin = 'localhost:4000/api';
-const zeroBuffer = require(__dirname + '/../lib/zero_buffer.js');
+// const zeroBuffer = require(__dirname + '/../lib/zero_buffer.js');
 
 describe('User Authentication: ', () => {
   var serverListen;
@@ -17,8 +17,8 @@ describe('User Authentication: ', () => {
   });
   after((done) => {
     main.db.connection.db.dropDatabase(() => {
-    serverListen.close();
-    done();
+      serverListen.close();
+      done();
     });
   });
   describe('User Signup Test: ', () => {
