@@ -32,7 +32,7 @@ describe('User Authentication: ', () => {
       .post('/signup')
       .send(invalidUser)
       .end((err, res) => {
-        if (err) process.stdout.write(err);
+        expect(err).to.not.eql(null);
         expect(res).to.have.status(400);
         expect(res.body.msg).to.eql('invalid email');
         done();
