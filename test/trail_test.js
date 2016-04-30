@@ -5,27 +5,30 @@ chai.use(chaiHttp);
 const request = chai.request;
 const mongoose = require('mongoose');
 const Trail = require(__dirname + '/../models/trail');
-const port = process.env.PORT = 3333;
 process.env. MONGO_URI = 'mongodb://localhost/test_trails_db';
 
-const server = require(__dirname + '/../server');
+const main = require(__dirname + '/test_server');
+const origin = 'localhost:4000/api';
 
 describe('Basic Routing test', () => {
+  var serverListen;
   before((done) => {
-    server.listen(port, () => {
+    serverListen = main.server.listen(4000);
+    main.db.connect(main.dbconnect, () => {
       done();
     });
   });
 
   after((done) => {
-    mongoose.connection.db.dropDatabase(() => {
+    main.db.connection.db.dropDatabase(() => {
+      serverListen.close();
       done();
     });
   });
 
   it('should work on a basic get rquest', (done) => {
-    request('localhost:' + port)
-    .get('/api/')
+    request(origin)
+    .get('/')
     .end((err, res) => {
       expect(err).to.eql(null);
       expect(res.body.msg).to.eql('Howdy Pardner!!');
