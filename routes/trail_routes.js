@@ -2,22 +2,24 @@ const Router = require('express').Router;
 const Trail = require(__dirname + '/../models/trail');
 const bodyParser = require('body-parser').json();
 const trailRouter = module.exports = new Router();
+const jwtAuth = require(__dirname + '/../lib/jwt_auth');
 const errorHandler = require(__dirname + '/../lib/db_error_handler');
 
 trailRouter.get('/', (req, res) => {
   res.status(200).json({ msg: 'Howdy Pardner!!' });
 });
 
-trailRouter.get('/trail', (req, res) => {
-  Trail.find(null, (err, data) => {
-    if (err) errorHandler();
+trailRouter.get('/trail', jwtAuth, (req, res) => {
+  Trail.find({ userId: req.user._id }, (err, data) => {
+    if (err) errorHandler(err, res);
 
     res.status(200).json(data);
   });
 });
 
-trailRouter.post('/trail', bodyParser, (req, res) => {
+trailRouter.post('/trail', jwtAuth, bodyParser, (req, res) => {
   var newTrail = new Trail(req.body);
+  newTrail.userId = req.user._id;
   newTrail.save((err, data) => {
     if (err) errorHandler();
 
