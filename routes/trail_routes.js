@@ -2,7 +2,7 @@ const Router = require('express').Router;
 const Trail = require(__dirname + '/../models/trail');
 const bodyParser = require('body-parser').json();
 const trailRouter = module.exports = new Router();
-const errorHandler = require(__dirname + '/../lib/db_error_handler.js');
+const errorHandler = require(__dirname + '/../lib/db_error_handler');
 
 trailRouter.get('/', (req, res) => {
   res.status(200).json({ msg: 'Howdy Pardner!!' });
