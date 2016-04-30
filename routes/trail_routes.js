@@ -31,7 +31,7 @@ trailRouter.put('/trail/:id', bodyParser, (req, res) => {
   Trail.update({ _id: req.params.id }, trailData, (err) => {
     if (err) errorHandler();
 
-    res.status(200).json({ msg: 'You have entered a new trail' });
+    res.status(200).json({ msg: 'You have changed trail information' });
   });
 });
 
