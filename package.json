@@ -34,16 +34,17 @@
     "url": "https://github.com/cliffhangerz/fairweatherhikers/issues"
   },
   "homepage": "https://github.com/cliffhangerz/fairweatherhikers",
-  "Dependencies": {
-    "express": "^4.13.4"
-  },
   "devDependencies": {
     "body-parser": "^1.15.0",
+    "chai": "^3.5.0",
+    "chai-http": "^2.0.1",
     "gulp": "^3.9.1",
     "gulp-eslint": "^2.0.0",
-    "gulp-mocha": "^2.2.0"
+    "gulp-mocha": "^2.2.0",
+    "mocha": "^2.4.5"
   },
   "dependencies": {
-    "mongoose": "^4.4.14"
+    "mongoose": "^4.4.14",
+    "express": "^4.13.4"
   }
 }

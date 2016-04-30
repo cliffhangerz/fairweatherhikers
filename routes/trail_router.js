@@ -1,7 +1,7 @@
 const Router = require('express').Router;
 const Trail = require(__dirname + '/../models/trail');
-var trailRouter = module.exports = Router();
 const bodyParser = require('body-parser').json();
+const trailRouter = module.exports = new Router();
 
 trailRouter.get('/', (req, res) => {
 
