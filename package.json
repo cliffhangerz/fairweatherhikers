@@ -46,7 +46,8 @@
     "bcrypt": "latest",
     "body-parser": "^1.15.0",
     "express": "^4.13.4",
-    "forecastio": "^1.0.1",
-    "jsonwebtoken": "^6.1.1"
+    "forecastio": "1.0.1",
+    "jsonwebtoken": "^6.1.1",
+    "mongoose": "^4.4.14"
   }
 }
