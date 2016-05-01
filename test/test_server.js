@@ -4,9 +4,12 @@ const mongoose = require('mongoose');
 
 const authRoutes = require(__dirname + '/../routes/auth_routes');
 const trailRoutes = require(__dirname + '/../routes/trail_routes');
+const hikeMatchRoutes = require(__dirname + '/../routes/hikematch_routes');
 
 appexpress.use('/api', authRoutes);
 appexpress.use('/api', trailRoutes);
+appexpress.use('/api', hikeMatchRoutes);
+
 
 module.exports = exports = {
   server: appexpress,
