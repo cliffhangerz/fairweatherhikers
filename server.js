@@ -1,13 +1,6 @@
-const express = require('express');
-const app = express();
-const PORT = process.env.PORT || 3000;
-const mongoose = require('mongoose');
-const trailRouter = require(__dirname + '/routes/trail_routes');
-// mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost/fairwather_db');
-const logic = require(__dirname + '/logic/weather');
+if (!process.env.APP_SECRET) throw new Error('You need to set the APP_SECRET environment variable');
 
-app.use('/api', trailRouter);
+var port = process.env.PORT || 3000;
 
-module.exports = app.listen(PORT, () => {
-  console.log('Server Spinning on Port:' + PORT);
-});
+var app = require(__dirname + '/_server.js');
+app.listen(port, 'mongodb://localhost/db', () => console.log('server up on port:' + port));
