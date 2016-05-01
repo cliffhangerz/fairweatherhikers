@@ -5,15 +5,16 @@ chai.use(chaiHttp);
 const request = chai.request;
 
 const main = require(__dirname + '/test_server');
-const origin = 'localhost:4000/api';
+const origin = 'localhost:4040/api';
 
 describe('Match Routing test', () => {
   var serverListen;
   before(() => {
-    serverListen = main.server.listen(4000);
+    serverListen = main.server.listen(4040);
     main.db.connect(main.dbconnect, () => {
     });
   });
+
 
   after((done) => {
     main.db.connection.db.dropDatabase(() => {
@@ -27,7 +28,7 @@ describe('Match Routing test', () => {
     .get('/hikematch')
     .end((err, res) => {
       expect(err).to.eql(null);
-      expect(res.body.msg).to.eql('Howdy Pardner!!');
+      expect(res.body.msg).to.eql('You found some hikes with nice weather');
       done();
     });
   });
