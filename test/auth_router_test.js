@@ -24,7 +24,7 @@ describe('User Authentication: ', () => {
   describe('User Signup Test: ', () => {
     it('should err if email is not entered', (done) => {
       var invalidUser = {
-        name: 'Invalid Jones',
+        username: 'Invalid Jones',
         email: '',
         password: '12345678'
       };
@@ -38,41 +38,41 @@ describe('User Authentication: ', () => {
         done();
       });
     });
-  //   it('should err if email is malformed', (done) => {
-  //     var invalidUser = {
-  //       name: 'Invalid Jones',
-  //       email: 'InvalidJones@IJcom',
-  //       password: '12345678'
-  //     };
-  //     request(origin)
-  //     .post('/signup')
-  //     .send(invalidUser)
-  //     .end((err, res) => {
-  //       if (err) throw err;
-  //       expect(res).to.have.status(400);
-  //       expect(res.body.msg).to.eql('invalid email');
-  //       done();
-  //     });
-  //   });
-  //   it('should err if username is not entered', (done) => {
-  //     var invalidUser = {
-  //       name: '',
-  //       email: 'IJ@IJ.com',
-  //       password: '12345678'
-  //     };
-  //     request(origin)
-  //     .post('/signup')
-  //     .send(invalidUser)
-  //     .end((err, res) => {
-  //       if (err) throw err;
-  //       expect(res).to.have.status(400);
-  //       expect(res.body.msg).to.eql('invalid username');
-  //       done();
-  //     });
-  //   });
+    it('should err if email is malformed', (done) => {
+      var invalidUser = {
+        username: 'Invalid Jones',
+        email: 'InvalidJones@IJcom',
+        password: '12345678'
+      };
+      request(origin)
+      .post('/signup')
+      .send(invalidUser)
+      .end((err, res) => {
+        expect(err).to.not.eql(null);
+        expect(res).to.have.status(400);
+        expect(res.body.msg).to.eql('invalid email');
+        done();
+      });
+    });
+    it('should err if username is not entered', (done) => {
+      var invalidUser = {
+        username: '',
+        email: 'IJ@IJ.com',
+        password: '12345678'
+      };
+      request(origin)
+      .post('/signup')
+      .send(invalidUser)
+      .end((err, res) => {
+        expect(err).to.not.eql(null);
+        expect(res).to.have.status(400);
+        expect(res.body.msg).to.eql('invalid username');
+        done();
+      });
+    });
   //   it('should err if password is less than 8 characters', (done) => {
   //     var invalidUser = {
-  //       name: 'Invalid Jones',
+  //       username: 'Invalid Jones',
   //       email: 'IJ@IJ.com',
   //       password: '1234'
   //     };
@@ -80,7 +80,7 @@ describe('User Authentication: ', () => {
   //     .post('/signup')
   //     .send(invalidUser)
   //     .end((err, res) => {
-  //       if (err) throw err;
+//  expect(err).to.not.eql(null);
   //       expect(res).to.have.status(400);
   //       expect(res.body.msg).to.eql('invalid password');
   //       done();
@@ -88,7 +88,7 @@ describe('User Authentication: ', () => {
   //   });
   //   it('should be able to create a new user', (done) => {
   //     var newUser = {
-  //       name: 'Valid Johnson',
+  //       username: 'Valid Johnson',
   //       email: 'VJ@VJ.com',
   //       password: '12345678'
   //     };
@@ -105,7 +105,7 @@ describe('User Authentication: ', () => {
   //   });
   //   it('should err if a user already exists', (done) => {
   //     var sameUser = {
-  //       name: 'Valid Johnson',
+  //       username: 'Valid Johnson',
   //       email: 'VJ@VJ.com',
   //       password: '12345678'
   //     };
@@ -122,7 +122,7 @@ describe('User Authentication: ', () => {
   });
   // describe('Tests that require an existing doc in the db', () => {
   //   var signinUser = {
-  //     name: 'Valid Johnson',
+  //     username: 'Valid Johnson',
   //     email: 'VJ@VJ.com',
   //     password: '12345678'
   //   };
@@ -144,7 +144,7 @@ describe('User Authentication: ', () => {
   //       if (err) throw err;
   //       expect(err).to.eql(null);
   //       expect(res).to.have.status(200);
-  //       expect(res.body.name).to.eql('Valid Johnson');
+  //       expect(res.body.username).to.eql('Valid Johnson');
   //       done();
   //     });
   //   });
