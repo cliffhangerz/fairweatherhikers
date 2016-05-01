@@ -7,6 +7,7 @@ var paths = {
     __dirname + '/index.js',
     __dirname + '/gulpfile.js',
     __dirname + '/lib/**/*.js',
+    __dirname + '/logic/*.js',
     __dirname + '/model/**/*.js',
     __dirname + '/routes/**/*.js'
   ],

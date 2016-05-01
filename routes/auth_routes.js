@@ -2,25 +2,38 @@ const express = require('express');
 const bodyParser = require('body-parser').json();
 const basicHttp = require(__dirname + '/../lib/basic_http');
 const User = require(__dirname + '/../models/user');
-const errorHandler = require(__dirname + '/../lib/db_error_handler');
+// const errorHandler = require(__dirname + '/../lib/db_error_handler');
 
 var authenticationRouter = module.exports = exports = express.Router();
 
 authenticationRouter.post('/signup', bodyParser, (req, res) => {
-  var password = req.body.password;
-  req.body.password = null;
+  if (req.body.email === '' || req.body.email.indexOf('@') < 0 || req.body.email.indexOf('.') < 0) {
+    return res.status(400).json({ msg: 'invalid email' });
+  }
+  if (req.body.password.length < 8) {
+    return res.status(400).json({ msg: 'invalid password' });
+  }
+  if (req.body.username.length === 0) {
+    return res.status(400).json({ msg: 'invalid username' });
+  }
 
-  if (!password) return res.status(500).json({ msg: 'Please enter password.' });
+  var email = req.body.email;
+  req.body.email = null;
+  var username = req.body.username;
+  req.body.username = null;
+
 
   var newUser = new User(req.body);
+  var password = req.body.password;
   newUser.generateHash(password);
+  req.body.password = null;
   password = null;
 
   newUser.save((err, user) => {
-    if (err) return res.status(500).json({ msg: 'Could not create user.' });
+    if (err) return res.status(400).json({ msg: 'Could not create user.' });
 
     user.generateToken((err, token) => {
-      if (err) return res.status(500).json({ msg: 'Could not generate token, sign in later.' });
+      if (err) return res.status(400).json({ msg: 'Could not generate token, sign in later.' });
 
       res.json({ token });
     });
