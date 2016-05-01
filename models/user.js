@@ -1,26 +1,52 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 
-var userSchema = new mongoose.Schema({
-  username: String,
-  authentication: {
-    email: String,
-    password: String
-  }
+var userSchema = mongoose.Schema({ //eslint-disable-line
+  username: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
+  email: { type: String, required: true },
+  findHash: { type: String, unique: true }
 });
-// lets turn that password into some tasty hash
-userSchema.methods.hashPassword = function(password) {
-  var hash = this.authentication.password = bcrypt.hashSync(password, 8);
-  return hash;
+
+userSchema.methods.generateHash = function(password) {
+  return this.password = bcrypt.hashSync(password, 8);
 };
-// lets make sure that the hash worked
-userSchema.methods.comparePassword = function(password) {
-  return bcrypt.compareSync(password, this.authentication.password);
+
+userSchema.methods.compareHash = function(password) {
+  return bcrypt.compareSync(password, this.password);
 };
-// gimme a token
-userSchema.methods.generateToken = function() {
-  return jwt.sign({ id: this._id }, process.env.APP_SECRET || 'yabbadabbadoo');
+
+userSchema.methods.generateFindHash = function(cb) {
+  var tries = 0;
+  var timeout;
+  var _generateFindHash = () => {
+    var hash = crypto.randomBytes(32);
+    this.findHash = hash.toString('hex');
+    this.save((err) => {
+      if (err) {
+        if (tries > 9) {
+          return cb(new Error('could not generate hash'));
+        }
+        return timeout = setTimeout(() => {
+          _generateFindHash();
+          tries++;
+        }, 1000);
+      }
+
+      if (timeout) clearTimeout(timeout);
+      cb(null, hash.toString('hex'));
+    });
+  };
+  _generateFindHash();
 };
-// ship it
+
+userSchema.methods.generateToken = function(cb) {
+  this.generateFindHash((err, hash) => {
+    if (err) return cb(err);
+    cb(null, jwt.sign({ idd: hash }, process.env.APP_SECRET));
+  });
+};
+
 module.exports = exports = mongoose.model('User', userSchema);
