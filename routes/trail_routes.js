@@ -6,7 +6,7 @@ const jwtAuth = require(__dirname + '/../lib/jwt_auth');
 const errorHandler = require(__dirname + '/../lib/db_error_handler');
 
 trailRouter.get('/', (req, res) => {
-  res.status(200).json({ msg: 'Howdy Pardner!!' });
+  res.status(200).json({ msg: 'Yo de le he hoo!' });
 });
 
 trailRouter.get('/trails', jwtAuth, (req, res) => {
