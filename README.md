@@ -98,11 +98,11 @@ After a successful post, the app returns an object id associated with this trail
 ###PUTting new info into the db (overwrites existing document)
 Any info you include in your PUT request will overwrite the entire document containing a saved trail. The format (using httpie) uses json format and is basically: http PUT <URL> <new info> <token>. Refer to the following as an example.
 ```bash
-> http PUT localhost:3000/api/trails/5725721fa58a7568be40b281 "loc"="Commonwealth Basin - Red Mtn. Pass" "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZGQiOiI2ZGYyMjJhMWQ1ZWQ4M2IyZThhZjA5YjNhMWM5ODY3ZWJmMzRhYmU5ZTFmNzYyZGY0MTIwYTA2MmZjNjBjOGJjIiwiaWF0IjoxNDYyMDYzMTk0fQ.yBFPeZclLScPN-K_W48Xsoj7rq8fNx5QiWHZhNRmApU" 
+> http PUT localhost:3000/api/trails/:id "loc"="Commonwealth Basin - Red Mountain Trail"
 ```
 
 ###GETting info from the db
-GET is the default request in httpie, so you don't need to explicitly include it in the request. The following is an example that gets trail info from all trails in the db. It will include the three-day weather report for that location. 
+GET is the default request in httpie, so you don't need to explicitly include it in the request. The following is an example that gets trail info from all trails in the db. It will include the three-day weather report for that location.
 ```bash
 > http localhost:3000/api/trails "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZGQiOiI2ZGYyMjJhMWQ1ZWQ4M2IyZThhZjA5YjNhMWM5ODY3ZWJmMzRhYmU5ZTFmNzYyZGY0MTIwYTA2MmZjNjBjOGJjIiwiaWF0IjoxNDYyMDYzMTk0fQ.yBFPeZclLScPN-K_W48Xsoj7rq8fNx5QiWHZhNRmApU"
 ```

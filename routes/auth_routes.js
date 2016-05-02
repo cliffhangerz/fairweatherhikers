@@ -1,8 +1,7 @@
 const express = require('express');
+const User = require(__dirname + '/../models/user');
 const bodyParser = require('body-parser').json();
 const basicHttp = require(__dirname + '/../lib/basic_http');
-const User = require(__dirname + '/../models/user');
-// const errorHandler = require(__dirname + '/../lib/db_error_handler');
 
 var authenticationRouter = module.exports = exports = express.Router();
 
@@ -11,19 +10,12 @@ authenticationRouter.post('/signup', bodyParser, (req, res) => {
     return res.status(400).json({ msg: 'invalid email' });
   }
   if (req.body.password.length < 8) {
-    return res.status(400).json({ msg: 'invalid password' });
+    return res.status(400).json({ msg: 'password should be 8 characters or more' });
   }
-  if (req.body.username.length === 0) {
-    return res.status(400).json({ msg: 'invalid username' });
-  }
-
-  var email = req.body.email;
-  req.body.email = null;
-  var username = req.body.username;
-  req.body.username = null;
-
 
   var newUser = new User(req.body);
+  var email = req.body.email;
+  req.body.email = null;
   var password = req.body.password;
   newUser.generateHash(password);
   req.body.password = null;
@@ -41,10 +33,10 @@ authenticationRouter.post('/signup', bodyParser, (req, res) => {
 });
 
 authenticationRouter.get('/signin', basicHttp, (req, res) => {
-  User.findOne({ username: req.auth.username }, (err, user) => {
+  User.findOne({ email: req.auth.email }, (err, user) => {
     if (err) return res.status(500).json({ msg: 'There is an error during sign-in, please try again!' });
 
-    if (!user) return res.status(500).json({ msg: 'Invalid username!' });
+    if (!user) return res.status(500).json({ msg: 'Invalid email!' });
 
     if (!user.compareHash(req.auth.password)) return res.status(500).json({ msg: 'Invalid password!'}); // eslint-disable-line
 

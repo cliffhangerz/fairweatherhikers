@@ -12,7 +12,6 @@ trailRouter.get('/', (req, res) => {
 trailRouter.get('/trails', jwtAuth, (req, res) => {
   Trail.find({ userId: req.user._id }, (err, data) => {
     if (err) return errorHandler(err, res);
-
     res.status(200).json(data);
   });
 });
@@ -22,7 +21,6 @@ trailRouter.post('/trails', jwtAuth, bodyParser, (req, res) => {
   newTrail.userId = req.user._id;
   newTrail.save((err, data) => {
     if (err) return errorHandler(err, res);
-
     res.status(200).json(data);
   });
 });
@@ -32,7 +30,6 @@ trailRouter.put('/trails/:id', bodyParser, (req, res) => {
   delete trailData._id;
   Trail.update({ _id: req.params.id }, trailData, (err) => {
     if (err) return errorHandler(err, res);
-
     res.status(200).json({ msg: 'You have changed trail information' });
   });
 });
@@ -40,7 +37,6 @@ trailRouter.put('/trails/:id', bodyParser, (req, res) => {
 trailRouter.delete('/trails/:id', (req, res) => {
   Trail.remove({ _id: req.params.id }, (err) => {
     if (err) return errorHandler(err, res);
-
     res.status(200).json({ msg: 'Trail Deleted' });
   });
 });
