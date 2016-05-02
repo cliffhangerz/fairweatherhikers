@@ -10,6 +10,9 @@ hikeMatchRouter.get('/hikematch', jwtAuth, (req, res) => {
     if (err) return errorHandler(err, res);
 
     var trailArray = data;
+    if (!trailArray.length) {
+      return res.status(200).json({ msg: 'No trails in the database, please enter some trails' });
+    }
 
     trailArray.forEach((trail) => {
       var trailLoc = trail.loc;
@@ -22,15 +25,14 @@ hikeMatchRouter.get('/hikematch', jwtAuth, (req, res) => {
         var parsed = JSON.parse(jsonString);
 
         for (var i = 0; i < 3; i++) {
-          var dateString = new Date(parsed['daily']['data'][i]['time']*1000);
+          var dateString = new Date(parsed['daily']['data'][i]['time']*1000); // eslint-disable-line
           dateString = new Date(dateString).toUTCString();
           date = dateString.split(' ').slice(0, 4).join(' ');
           console.log(trailLoc + ' rain chance for ' + date + ' = ' +
-           parsed['daily']['data'][i]['precipProbability']*100 + ' %');
+           parsed['daily']['data'][i]['precipProbability']*100 + ' %'); // eslint-disable-line
         }
       });
     });
       res.status(200).json({ msg: 'You found some hikes with nice weather' });
   });
 });
-

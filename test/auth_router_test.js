@@ -6,9 +6,8 @@ const request = chai.request;
 
 const main = require(__dirname + '/../_server');
 const origin = 'localhost:4000/api';
-var port = process.env.PORT || 4000;
-var testDb = process.env.MONGO_URI || 'mongodb://localhost/db_test_auth';
-// const zeroBuffer = require(__dirname + '/../lib/zero_buffer.js');
+var port = process.env.PORT || 3000;
+var testDb = process.env.MONGOLAB_URI || 'mongodb://localhost/db_test';
 
 describe('User Authentication: ', () => {
   before(() => {
@@ -172,12 +171,6 @@ describe('User Authentication: ', () => {
   //       expect(res.body.msg).to.eql('wrong password');
   //       done();
   //     });
-  //   });
-  //   it('should be able to zero out the buffer', (done) => {
-  //     var testBuffer = [3, 5, 57, 77777];
-  //     zeroBuffer(testBuffer);
-  //     expect(testBuffer.toString()).to.eql('\u0000\u0000\u0000\u0000');
-  //     done();
   //   });
   // });
 });
