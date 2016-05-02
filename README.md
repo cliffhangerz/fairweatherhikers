@@ -117,10 +117,10 @@ You might want to delete a trail from the db if you no longer want fairweatherhi
 ## Authors
 
 Written by
-[Ali Foreman](https://github.com/AlegriaForeman),
+[Ali Forman](https://github.com/AlegriaForman),
 [Gene Troy](https://github.com/energene),
 [James Norton](https://github.com/jimmynono), and
-[Tim Foreman](https://github.com/T4Man)
+[Tim Forman](https://github.com/T4Man)
 
 
 ## Acknowledgements
