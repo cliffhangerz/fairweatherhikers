@@ -6,11 +6,13 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
 const trailRouter = require(__dirname + '/routes/trail_routes');
-const logic = require(__dirname + '/logic/weather');
 const authRouter = require(__dirname + '/routes/auth_routes');
+const hikeMatchRouter = require(__dirname + '/routes/hikematch_routes');
 
 app.use('/api', trailRouter);
 app.use('/api', authRouter);
+app.use('/api', hikeMatchRouter);
+
 
 module.exports = exports = {
   server: { close: function() {
