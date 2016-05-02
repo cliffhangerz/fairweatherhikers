@@ -12,7 +12,7 @@ http POST localhost:3000/api/trail loc="Bessemer Mountain Trail" lat=47.5498 lon
 
 http POST localhost:3000/api/trail loc="Amabilis Mountain Snowshoe" lat=47.2933 lon=121.2612 difficulty=hard length=9.5 time=5
 
-http POST localhost:3000/api/trail loc="Barehead Mountain Trail" lat=47.0235 lon=121.8158 difficulty=moderate length=6 time=3
+http POST localhost:3000/api/trail loc="Bearhead Mountain Trail" lat=47.0235 lon=121.8158 difficulty=moderate length=6 time=3
 
 http POST localhost:3000/api/trail loc="Bare Mountain Trail" lat=47.6494 lon=121.5075 difficulty=moderate length=8.2 time=4
 
