@@ -11,5 +11,5 @@ appexpress.use('/api', trailRoutes);
 module.exports = exports = {
   server: appexpress,
   db: mongoose,
-  dbconnect: process.env.MONGOLAB_URI || 'mongodb://localhost/localdbtest'
+  dbconnect: process.env.MONGO_URI || 'mongodb://localhost/localdbtest'
 };
