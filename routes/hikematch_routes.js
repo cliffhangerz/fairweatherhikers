@@ -10,6 +10,8 @@ hikeMatchRouter.get('/hikematch', jwtAuth, (req, res) => {
     if (err) return errorHandler(err, res);
 
     var trailArray = data;
+    var goodWeatherTrailArray = [];
+
     if (!trailArray.length) {
       return res.status(200).json({ msg: 'No trails in the database, please enter some trails' });
     }
@@ -18,6 +20,7 @@ hikeMatchRouter.get('/hikematch', jwtAuth, (req, res) => {
       var trailLoc = trail.loc;
       var trailLon = trail.lon;
       var trailLat = trail.lat;
+      var trailGoodWeather = true;
 
       var forecastIo = new ForecastIo('ce1e9e7c47068378251586a90ecb14cd');
       forecastIo.forecast(trailLat, '-' + trailLon).then(function(data) {
@@ -28,11 +31,20 @@ hikeMatchRouter.get('/hikematch', jwtAuth, (req, res) => {
           var dateString = new Date(parsed['daily']['data'][i]['time']*1000); // eslint-disable-line
           dateString = new Date(dateString).toUTCString();
           date = dateString.split(' ').slice(0, 4).join(' ');
+
+          var rainChanceString = parsed['daily']['data'][i]['precipProbability'] * 100  // eslint-disable-line
+
+          if (rainChanceString >= 30) return trailGoodWeather = false;
+
           console.log(trailLoc + ' rain chance for ' + date + ' = ' +
-           parsed['daily']['data'][i]['precipProbability']*100 + ' %'); // eslint-disable-line
+           rainChanceString + ' %');
         }
       });
+      if (trailGoodWeather) goodWeatherTrailArray.push(trail.loc);
     });
-      res.status(200).json({ msg: 'You found some hikes with nice weather' });
+
+    res.status(200).json({ msg: 'You found some hikes with nice weather',
+                           fairWeatherHikes: goodWeatherTrailArray
+                         });
   });
 });
