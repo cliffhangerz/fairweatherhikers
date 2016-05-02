@@ -22,11 +22,11 @@ hikeMatchRouter.get('/hikematch', jwtAuth, (req, res) => {
         var parsed = JSON.parse(jsonString);
 
         for (var i = 0; i < 3; i++) {
-          var dateString = new Date(parsed['daily']['data'][i]['time']*1000);
+          var dateString = new Date(parsed['daily']['data'][i]['time']*1000); // eslint-disable-line
           dateString = new Date(dateString).toUTCString();
           date = dateString.split(' ').slice(0, 4).join(' ');
           console.log(trailLoc + ' rain chance for ' + date + ' = ' +
-           parsed['daily']['data'][i]['precipProbability']*100 + ' %');
+           parsed['daily']['data'][i]['precipProbability']*100 + ' %'); // eslint-disable-line
         }
       });
     });
