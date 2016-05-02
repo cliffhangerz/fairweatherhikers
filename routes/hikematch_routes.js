@@ -10,6 +10,9 @@ hikeMatchRouter.get('/hikematch', jwtAuth, (req, res) => {
     if (err) return errorHandler(err, res);
 
     var trailArray = data;
+    if (!trailArray.length) {
+      return res.status(200).json({ msg: 'No trails in the database, please enter some trails' });
+    }
 
     trailArray.forEach((trail) => {
       var trailLoc = trail.loc;
@@ -33,4 +36,3 @@ hikeMatchRouter.get('/hikematch', jwtAuth, (req, res) => {
       res.status(200).json({ msg: 'You found some hikes with nice weather' });
   });
 });
-
