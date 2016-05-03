@@ -4,6 +4,7 @@ const Trail = require(__dirname + '/../models/trail');
 const hikeMatchRouter = module.exports = new Router();
 const errorHandler = require(__dirname + '/../lib/db_error_handler');
 const jwtAuth = require(__dirname + '/../lib/jwt_auth');
+const dataResults = require(__dirname + '/../lib/dataresults');
 
 hikeMatchRouter.get('/hikematch', jwtAuth, (req, res) => {
   Trail.find({
@@ -47,7 +48,6 @@ hikeMatchRouter.get('/hikematch', jwtAuth, (req, res) => {
           console.log(trailLoc + ' rain chance for ' + date + ' = ' +
             rainChanceString + ' %');
           if (i === 2) {
-            console.log(goodHike);
             return goodHike
           }
         }
@@ -56,9 +56,14 @@ hikeMatchRouter.get('/hikematch', jwtAuth, (req, res) => {
       // if (trailGoodWeather) goodWeatherTrailArray.push(trail.loc);
     });
 
-    res.status(200).json({
-      msg: 'You found some hikes with nice weather',
-      fairWeatherHikes: goodWeatherTrailArray
-    });
+    setTimeout(() => {
+      dataResults(goodWeatherTrailArray);
+
+      res.status(200).json({
+        msg: 'You found some hikes with nice weather',
+        fairWeatherHikes: goodWeatherTrailArray
+      });
+    }, 1000)
   });
+
 });
