@@ -5,8 +5,8 @@ const trailRouter = module.exports = new Router();
 const jwtAuth = require(__dirname + '/../lib/jwt_auth');
 const errorHandler = require(__dirname + '/../lib/db_error_handler');
 
-trailRouter.get('/trails', jwtAuth, (req, res) => {
-  Trail.find({ userId: req.user._id }, (err, data) => {
+trailRouter.get('/trails', (req, res) => {
+  Trail.find(null, (err, data) => {
     if (err) return errorHandler(err, res);
     res.status(200).json(data);
   });
