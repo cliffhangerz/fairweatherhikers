@@ -4,29 +4,29 @@ chai.use(chaiHttp);
 const expect = chai.expect;
 const request = chai.request;
 
-const main = require(__dirname + '/../_server');
+const server = require(__dirname + '/../_server');
 const origin = 'localhost:4000/api';
 var port = process.env.PORT || 3000;
-var testDb = process.env.MONGOLAB_URI || 'mongodb://localhost/db_test';
+var mongoose = require('mongoose');
+var testDb = 'mongodb://localhost/auth_test_db';
 
 describe('User Authentication: ', () => {
   before(() => {
-    main.listen(port, testDb, () => {
-      console.log('server up on port:' + port);
-    });
+    server.listen(port, testDb);
+    console.log('server up on port ' + port);
   });
 
-  // after((done) => {
-  //   main.close(() => {
-  //     main.disconnect();
-  //     done();
-  //   });
-  // });
+  after((done) => {
+    mongoose.connection.db.dropDatabase(() => {
+      mongoose.disconnect(() => {
+        server.close(done);
+      });
+    });
+  });
 
   describe('User Signup Test: ', () => {
     it('should err if email is not entered', (done) => {
       var invalidUser = {
-        username: 'Invalid Jones',
         email: '',
         password: '12345678'
       };
@@ -34,6 +34,7 @@ describe('User Authentication: ', () => {
       .post('/signup')
       .send(invalidUser)
       .end((err, res) => {
+        console.log(res);
         expect(err).to.not.eql(null);
         expect(res).to.have.status(400);
         expect(res.body.msg).to.eql('invalid email');
@@ -88,23 +89,22 @@ describe('User Authentication: ', () => {
   //       done();
   //     });
   //   });
-  //   it('should be able to create a new user', (done) => {
-  //     var newUser = {
-  //       username: 'Valid Johnson',
-  //       email: 'VJ@VJ.com',
-  //       password: '12345678'
-  //     };
-  //     request(origin)
-  //     .post('/signup')
-  //     .send(newUser)
-  //     .end((err, res) => {
-  //       expect(err).to.eql(null);
-  //       expect(res).to.have.status(200);
-  //       expect(res.body.msg).to.eql('Signup was a huge success!');
-  //       this.token = res.body;
-  //       done();
-  //     });
-  //   });
+    // it('should be able to create a new user', (done) => {
+    //   var newUser = {
+    //     email: 'ValidJohnson@VJ.com',
+    //     password: '12345678'
+    //   };
+    //   request(origin)
+    //   .post('/signup')
+    //   .send(newUser)
+    //   .end((err, res) => {
+    //     expect(err).to.eql(null);
+    //     expect(res).to.have.status(200);
+    //     expect(res.body.msg).to.eql('Signup was a huge success!');
+    //     this.token = res.body;
+    //     done();
+    //   });
+    // });
   //   it('should err if a user already exists', (done) => {
   //     var sameUser = {
   //       username: 'Valid Johnson',
