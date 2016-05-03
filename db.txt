@@ -31,3 +31,7 @@ http POST localhost:3000/api/trail loc="Barlow Point Trail" lat=48.0373 lon=121.
 http POST localhost:3000/api/trail loc="Barclay Lake Trail" lat=47.784 lon=121.425 difficulty=easy length=4.4 time=2
 
 http POST localhost:3000/api/trail loc="Ashland Lakes Trail" lat=48.0280 lon=121.7285 difficulty=easy length=5.5 time=3.25
+
+http POST localhost:3000/api/trail loc="Top Gun" lat=39.2530 lon=118.4210 difficulty=moderate length=14 time=1.21
+
+'{"loc":"Top Gun - Fallon, Nevada", "lat":39.2530, "lon":118.4210, "difficulty":"moderate", "length":"14", "time":1.21}'
