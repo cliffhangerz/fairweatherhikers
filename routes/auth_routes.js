@@ -14,7 +14,6 @@ authenticationRouter.post('/signup', bodyParser, (req, res) => {
   }
 
   var newUser = new User(req.body);
-  var email = req.body.email;
   req.body.email = null;
   var password = req.body.password;
   newUser.generateHash(password);
@@ -34,7 +33,7 @@ authenticationRouter.post('/signup', bodyParser, (req, res) => {
 
 authenticationRouter.get('/signin', basicHttp, (req, res) => {
   User.findOne({ email: req.auth.email }, (err, user) => {
-    if (err) return res.status(500).json({ msg: 'There is an error during sign-in, please try again!' });
+    if (err) return res.status(500).json({ msg: 'There is an error during sign-in, please try again!' }); //eslint-disable-line
 
     if (!user) return res.status(500).json({ msg: 'Invalid email!' });
 

@@ -41,12 +41,13 @@ hikeMatchRouter.get('/hikematch', jwtAuth, (req, res) => {
           dateString = new Date(dateString).toUTCString();
           date = dateString.split(' ').slice(0, 4).join(' ');
 
-          var rainChanceString = parsed['daily']['data'][i]['precipProbability'] * 100 // eslint-disable-line
-          goodHike.weatherForecast[i] = rainChanceString;
+          var rainChanceString = parsed['daily']['data'][i]['precipProbability'] * 100; // eslint-disable-line
+          var rainChance = Math.round(rainChanceString);
+          goodHike.weatherForecast[i] = rainChance;
           // if (rainChanceString >= 30) return trailGoodWeather = false;
 
           console.log(trailLoc + ' rain chance for ' + date + ' = ' +
-            rainChanceString + ' %');
+            rainChance + ' %');
           if (i === 2) {
             return goodHike;
           }
