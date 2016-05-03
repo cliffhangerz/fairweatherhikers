@@ -48,7 +48,7 @@ hikeMatchRouter.get('/hikematch', jwtAuth, (req, res) => {
           console.log(trailLoc + ' rain chance for ' + date + ' = ' +
             rainChanceString + ' %');
           if (i === 2) {
-            return goodHike
+            return goodHike;
           }
         }
       });
@@ -63,7 +63,6 @@ hikeMatchRouter.get('/hikematch', jwtAuth, (req, res) => {
         msg: 'You found some hikes with nice weather',
         fairWeatherHikes: goodWeatherTrailArray
       });
-    }, 1000)
+    }, 1000);
   });
-
 });
