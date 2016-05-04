@@ -88,6 +88,7 @@ describe('Trail Routing test', () => {
     it('should be able to PUT data for a trail', (done) => {
       request('localhost:' + port)
       .put('/api/trails/' + this.testTrail._id)
+      .set('token', this.token)
       .send({ loc: 'Appalachian',
               lat: 47.13245,
               lon: 123.6370,
@@ -106,6 +107,7 @@ describe('Trail Routing test', () => {
     it('should DELETE a trail', (done) => {
       request('localhost:' + port)
       .delete('/api/trails/' + this.testTrail._id)
+      .set('token', this.token)
       .end((err, res) => {
         expect(err).to.eql(null);
         expect(res.status).to.eql(200);

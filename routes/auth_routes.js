@@ -44,7 +44,7 @@ authenticationRouter.get('/signin', basicHttp, (req, res) => {
     if (!user.compareHash(req.auth.password)) return res.status(401).json({ msg: 'Invalid password!'}); // eslint-disable-line
     user.generateToken((err, token) => {
       if (err) return res.status(401).json({ msg: 'Could not generate token, sign in later.' });
-      res.json({ token });
+      return res.status(200).json({ msg: 'successful signin', token: token });
     });
   });
 });

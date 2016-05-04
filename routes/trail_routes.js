@@ -21,7 +21,7 @@ trailRouter.post('/trails', jwtAuth, bodyParser, (req, res) => {
   });
 });
 
-trailRouter.put('/trails/:id', bodyParser, (req, res) => {
+trailRouter.put('/trails/:id', jwtAuth, bodyParser, (req, res) => {
   var trailData = req.body;
   delete trailData._id;
   Trail.update({ _id: req.params.id }, trailData, (err) => {
@@ -30,7 +30,7 @@ trailRouter.put('/trails/:id', bodyParser, (req, res) => {
   });
 });
 
-trailRouter.delete('/trails/:id', (req, res) => {
+trailRouter.delete('/trails/:id', jwtAuth, (req, res) => {
   Trail.remove({ _id: req.params.id }, (err) => {
     if (err) return errorHandler(err, res);
     res.status(200).json({ msg: 'Trail Deleted' });
