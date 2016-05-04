@@ -1,16 +1,17 @@
 http POST localhost:3000/api/trail loc="Commonwealth Basin - Red Mtn. Pass" lat=47.4605 lon=121.3976 difficulty=hard length=7.2 time=5.5
-
 '{"loc":"Commonwealth Basin - Red Mtn. Pass", "lat":47.4605, "lon":121.3976, "difficulty":"hard", "length":"7.2", "time":5.5}'
 
 http POST localhost:3000/api/trail loc="Blanca Lake Trail" lat=47.9346 lon=121.3432 difficulty=hard length=7.5 time=4.8
-
 '{"loc":"Blanca Lake Trail", "lat":47.9346, "lon":121.3432, "difficulty":"hard", "length":"7.5", "time":4.8}'
 
 http POST localhost:3000/api/trail loc="Big Heart Lake Trail" lat=47.5846 lon=121.3195 difficulty=hard length=14 time=8.5
+'{"loc":"Big Heart Lake Trail", "lat":47.5846, "lon":121.3195, "difficulty":"hard", "length":"14", "time":8.5}'
 
 http POST localhost:3000/api/trail loc="Bessemer Mountain Trail" lat=47.5498 lon=121.6141 difficulty=hard length=13 time=5.8
+'{"loc":"Bessemer Mountain Trail", "lat":47.5498, "lon":121.6141, "difficulty":"hard", "length":"13", "time":5.8}'
 
 http POST localhost:3000/api/trail loc="Amabilis Mountain Snowshoe" lat=47.2933 lon=121.2612 difficulty=hard length=9.5 time=5
+'{"loc":"Amabilis Mountain Snowshoe", "lat":47.2933, "lon":121.2612, "difficulty":"hard", "length":"9.5", "time":5}'
 
 http POST localhost:3000/api/trail loc="Bearhead Mountain Trail" lat=47.0235 lon=121.8158 difficulty=moderate length=6 time=3
 
