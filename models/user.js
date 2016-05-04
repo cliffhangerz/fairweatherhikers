@@ -4,9 +4,9 @@ const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 
 var userSchema = mongoose.Schema({ //eslint-disable-line
-  email: { type: String },
-  password: { type: String },
-  findHash: { type: String }
+  email: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
+  findHash: { type: String, unique: true }
 });
 
 userSchema.methods.generateHash = function(password) {
