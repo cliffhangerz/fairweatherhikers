@@ -8,6 +8,7 @@ const server = require(__dirname + '/../_server');
 const User = require(__dirname + '/../models/user');
 var port = process.env.PORT = 4000;
 var mongoose = require('mongoose');
+process.env.APP_SECRET = 'testsecret';
 
 describe('Auth router', () => {
   before((done) => {
