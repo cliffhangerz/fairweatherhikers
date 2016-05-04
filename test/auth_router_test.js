@@ -72,7 +72,7 @@ describe('Auth router', () => {
     });
 
     it('should be refuse access with invalid username', (done) => {
-      request('localhost:3000')
+      request('localhost:' + port)
         .get('/api/signin')
         .auth('wrongemail@test.com', 'authentication')
         .end((err, res) => {
