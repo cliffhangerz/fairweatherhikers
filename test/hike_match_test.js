@@ -2,12 +2,6 @@ const chai = require('chai');
 const expect = chai.expect;
 const chaiHttp = require('chai-http');
 chai.use(chaiHttp);
-// const request = chai.request;
-// const Trail = require(__dirname + '/../models/trail');
-
-const main = require(__dirname + '/test_server');
-const origin = 'localhost:4000/api';
-
 const ForecastIo = require('forecastio');
 
 describe('Hike Match test', () => {
