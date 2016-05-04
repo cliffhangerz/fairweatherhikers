@@ -29,7 +29,7 @@ The model used for creating a hike is as follows:
 ```
 
 ## Running
-Multiple terminal windows are required for setup; Iterm is a great app for this.
+Multiple terminal windows are required for setup; Iterm is a great app for this. Also, a CLI such as httpie is required to make http requests.
 
 ### Clone the app
 Fork this repo and clone it on your machine:
@@ -69,7 +69,7 @@ Open a third terminal window and type:
 > echo '{"email": "sasquatch@gmail.com", "password" : "bigandhairy"}' | http POST localhost:3000/api/signup
 ```
 You can substitute your own email and password for the one above. The program will return an auth token.
-MAKE SURE you copy the auth token (highlight it and control/command-C) before continuing.
+MAKE SURE you copy the auth token (highlight it and control/command-C) before continuing. You will be needing this token for CRUD actions.
 
 ##Sign-in
 The following example is for users with httpie already installed. Feel free to use your own favorite CLI instead.
@@ -80,7 +80,7 @@ The following example is for users with httpie already installed. Feel free to u
 ## CRUD operations
 
 ###POSTing a new trail
-To post a new trail, use the following json format (or input an empty string). Make sure you include:
+To post a new trail, you will need to include the following in your request:
 * Location (loc)
 * Latitude (lat)
 * Longitude (lon)
@@ -89,28 +89,28 @@ To post a new trail, use the following json format (or input an empty string). M
 * Time (time) in hours to complete for an average hiker
 * Token (between two double-quote marks, paste the value obtained from the sign-in step). Ensure that you don't put a space in between the "token": and the token value.
 
-This information can be found at many websites. We found the Washington Trails Association (wta.org) and Hiking With My Brother (hikingwithmybrother.com) websites to be very helpful. The following is an example:
+This information can be found at many websites. We found the Washington Trails Association (wta.org) and Hiking With My Brother (hikingwithmybrother.com) websites to be very helpful. Here is an example using httpie (requires json format):
 ```bash
-> local"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZGQiOiI2ZGYyMjJhMWQ1ZWQ4M2IyZThhZjA5YjNhMWM5ODY3ZWJmMzRhYmU5ZTFmNzYyZGY0MTIwYTA2MmZjNjBjOGJjIiwiaWF0IjoxNDYyMDYzMTk0fQ.yBFPeZclLScPN-K_W48Xsoj7rq8fNx5QiWHZhNRmApU"
+> echo '{"loc":"Commonwealth Basin - Red Mtn. Pass", "lat":47.4605, "lon":121.3976, "difficulty":"hard", "length":"7.2", "time":5.5}' | http post localhost:3000/api/trails "token":"pasteTokenInHere"
 ```
 After a successful post, the app returns an object id associated with this trail. This id is necessary to change trail information in a PUT request.
 
 ###PUTting new info into the db (overwrites existing document)
-Any info you include in your PUT request will overwrite the entire document containing a saved trail. The format (using httpie) uses json format and is basically: http PUT <URL> <new info> <token>. Refer to the following as an example.
+A PUT request will overwrite a saved trail entirely. The syntax using httpie would be: http PUT [URL] [new info] [token]. An example:
 ```bash
 > http PUT localhost:3000/api/trails/:id "loc"="Commonwealth Basin - Red Mountain Trail"
 ```
 
 ###GETting info from the db
-GET is the default request in httpie, so you don't need to explicitly include it in the request. The following is an example that gets trail info from all trails in the db. It will include the three-day weather report for that location.
+GET is the default in httpie, so you don't need to explicitly include it in the request. The following is an example that gets trail info from all trails in the db. It will include the three-day weather report for that location.
 ```bash
-> http localhost:3000/api/trails "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZGQiOiI2ZGYyMjJhMWQ1ZWQ4M2IyZThhZjA5YjNhMWM5ODY3ZWJmMzRhYmU5ZTFmNzYyZGY0MTIwYTA2MmZjNjBjOGJjIiwiaWF0IjoxNDYyMDYzMTk0fQ.yBFPeZclLScPN-K_W48Xsoj7rq8fNx5QiWHZhNRmApU"
+> http localhost:3000/api/trails "token":"pasteTokenInHere"
 ```
 
 ###DELETE a trail
 You might want to delete a trail from the db if you no longer want fairweatherhikers to consider it as a query option.
 ```bash
-> http DELETE localhost:3000/api/trails/57255294a58a7568be40b27e "loc"="Commonwealth Basin Trail" "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZGQiOiI2ZGYyMjJhMWQ1ZWQ4M2IyZThhZjA5YjNhMWM5ODY3ZWJmMzRhYmU5ZTFmNzYyZGY0MTIwYTA2MmZjNjBjOGJjIiwiaWF0IjoxNDYyMDYzMTk0fQ.yBFPeZclLScPN-K_W48Xsoj7rq8fNx5QiWHZhNRmApU"
+> http DELETE localhost:3000/api/trails/57255294a58a7568be40b27e "loc"="Commonwealth Basin Trail" "token":"pasteTokenInHere"
 
 ```
 
