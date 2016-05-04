@@ -91,12 +91,12 @@ To post a new trail, you will need to include the following in your request:
 
 This information can be found at many websites. We found the Washington Trails Association (wta.org) and Hiking With My Brother (hikingwithmybrother.com) websites to be very helpful. Here is an example using httpie (requires json format):
 ```bash
-> echo '{"loc":"Commonwealth Basin - Red Mtn. Pass", "lat":47.4605, "lon":121.3976, "difficulty":"hard", "length":"7.2", "time":5.5}' | http post localhost:3000/api/trails "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZGQiOiI2ZGYyMjJhMWQ1ZWQ4M2IyZThhZjA5YjNhMWM5ODY3ZWJmMzRhYmU5ZTFmNzYyZGY0MTIwYTA2MmZjNjBjOGJjIiwiaWF0IjoxNDYyMDYzMTk0fQ.yBFPeZclLScPN-K_W48Xsoj7rq8fNx5QiWHZhNRmApU"
+> echo '{"loc":"Commonwealth Basin - Red Mtn. Pass", "lat":47.4605, "lon":121.3976, "difficulty":"hard", "length":"7.2", "time":5.5}' | http post localhost:3000/api/trails "token":"pasteTokenInHere"
 ```
 After a successful post, the app returns an object id associated with this trail. This id is necessary to change trail information in a PUT request.
 
 ###PUTting new info into the db (overwrites existing document)
-A PUT request will overwrite a saved trail entirely. The syntax using httpie would be: http PUT <URL> <new info> <token>. An example:
+A PUT request will overwrite a saved trail entirely. The syntax using httpie would be: http PUT [URL] [new info] [token]. An example:
 ```bash
 > http PUT localhost:3000/api/trails/:id "loc"="Commonwealth Basin - Red Mountain Trail"
 ```
@@ -104,13 +104,13 @@ A PUT request will overwrite a saved trail entirely. The syntax using httpie wou
 ###GETting info from the db
 GET is the default in httpie, so you don't need to explicitly include it in the request. The following is an example that gets trail info from all trails in the db. It will include the three-day weather report for that location.
 ```bash
-> http localhost:3000/api/trails "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZGQiOiI2ZGYyMjJhMWQ1ZWQ4M2IyZThhZjA5YjNhMWM5ODY3ZWJmMzRhYmU5ZTFmNzYyZGY0MTIwYTA2MmZjNjBjOGJjIiwiaWF0IjoxNDYyMDYzMTk0fQ.yBFPeZclLScPN-K_W48Xsoj7rq8fNx5QiWHZhNRmApU"
+> http localhost:3000/api/trails "token":"pasteTokenInHere"
 ```
 
 ###DELETE a trail
 You might want to delete a trail from the db if you no longer want fairweatherhikers to consider it as a query option.
 ```bash
-> http DELETE localhost:3000/api/trails/57255294a58a7568be40b27e "loc"="Commonwealth Basin Trail" "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZGQiOiI2ZGYyMjJhMWQ1ZWQ4M2IyZThhZjA5YjNhMWM5ODY3ZWJmMzRhYmU5ZTFmNzYyZGY0MTIwYTA2MmZjNjBjOGJjIiwiaWF0IjoxNDYyMDYzMTk0fQ.yBFPeZclLScPN-K_W48Xsoj7rq8fNx5QiWHZhNRmApU"
+> http DELETE localhost:3000/api/trails/57255294a58a7568be40b27e "loc"="Commonwealth Basin Trail" "token":"pasteTokenInHere"
 
 ```
 
