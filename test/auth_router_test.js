@@ -3,20 +3,17 @@ const chaiHttp = require('chai-http');
 chai.use(chaiHttp);
 const expect = chai.expect;
 const request = chai.request;
-
 const server = require(__dirname + '/../_server');
 const origin = 'localhost:4000/api';
 var port = 4000;
 var mongoose = require('mongoose');
 var testDb = 'mongodb://localhost/auth_test_db';
 process.env.APP_SECRET = 'testsecret';
-
 describe('User Authentication: ', () => {
   before(() => {
     server.listen(port, testDb);
     console.log('server up on port ' + port);
   });
-
   after((done) => {
     mongoose.connection.db.dropDatabase(() => {
       mongoose.disconnect(() => {
@@ -25,7 +22,6 @@ describe('User Authentication: ', () => {
     });
   });
   // describe('User Signup Test: ', () => {
-
     // it('should err if email is not entered', (done) => {
     //   var invalidUser = {
     //     email: '',
@@ -88,9 +84,7 @@ describe('User Authentication: ', () => {
     //     done();
     //   });
     // });
-
   // });
-
   describe('Tests that require an existing doc in the db', () => {
     var signinUser = {
       email: 'VJ@VJ.com',
