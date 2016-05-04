@@ -26,20 +26,20 @@ hikeMatchRouter.get('/hikematch', jwtAuth, (req, res) => {
       var trailLoc = trail.loc;
       var trailLon = trail.lon;
       var trailLat = trail.lat;
-      var trailGoodWeather = true;
+      // var trailGoodWeather = true;
 
       goodHike.trailName = trailLoc;
       goodHike.weatherForecast = [];
 
       var forecastIo = new ForecastIo('ce1e9e7c47068378251586a90ecb14cd');
-      forecastIo.forecast(trailLat, '-' + trailLon).then(function (data) {
-        var jsonString = JSON.stringify((data), null, 2);
+      forecastIo.forecast(trailLat, '-' + trailLon).then((data) => {
+        var jsonString = JSON.stringify(data, null, 2);
         var parsed = JSON.parse(jsonString);
 
         for (var i = 0; i < 3; i++) {
           var dateString = new Date(parsed['daily']['data'][i]['time'] * 1000); // eslint-disable-line
           dateString = new Date(dateString).toUTCString();
-          date = dateString.split(' ').slice(0, 4).join(' ');
+          var date = dateString.split(' ').slice(0, 4).join(' ');
 
           var rainChanceString = parsed['daily']['data'][i]['precipProbability'] * 100; // eslint-disable-line
           var rainChance = Math.round(rainChanceString);
