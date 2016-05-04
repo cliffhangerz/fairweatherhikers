@@ -12,8 +12,9 @@ var paths = {
     __dirname + '/routes/**/*.js'
   ],
   test: [
-    __dirname + '/test/trail_test.js',
-    __dirname + '/test/test_hash.js'
+    // __dirname + '/test/trail_test.js',
+    // __dirname + '/test/test_hash.js',
+    __dirname + '/test/auth_router_test'
   ]
 };
 
