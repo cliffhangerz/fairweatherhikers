@@ -37,6 +37,12 @@ Fork this repo and clone it on your machine:
 > git clone https://github.com/cliffhangerz/fairweatherhikers
 ```
 
+### Navigate to project directory
+Type this:
+```bash
+> cd fairweatherhikers
+```
+
 ### Install packages
 ```bash
 > npm install
@@ -48,7 +54,7 @@ Fork this repo and clone it on your machine:
 ```
 
 ### Run tests
-Open a second terminal window and type:
+Open a second terminal window, navigate to the project directory, and type:
 ```bash
 > gulp
 ```
@@ -64,18 +70,18 @@ Open a second terminal window and type:
 ```
 
 ##Sign-up
-Open a third terminal window and type:
+Open a third terminal window and type the following (or you can substitute your own email and password):
 ```bash
 > echo '{"email": "sasquatch@gmail.com", "password" : "bigandhairy"}' | http POST localhost:3000/api/signup
 ```
-You can substitute your own email and password for the one above. The program will return an auth token.
-MAKE SURE you copy the auth token (highlight it and control/command-C) before continuing. You will be needing this token for CRUD actions.
 
 ##Sign-in
 The following example is for users with httpie already installed. Feel free to use your own favorite CLI instead.
 ```bash
 > http -a sasquatch@gmail.com:bigandhairy localhost:3000/api/signin
 ```
+The program will return an auth token.
+MAKE SURE YOU COPY the auth token (highlight it and control/command-C) before continuing. You will be needing this token for CRUD actions.
 
 ## CRUD operations
 
@@ -87,30 +93,37 @@ To post a new trail, you will need to include the following in your request:
 * Difficulty (difficulty) [either Easy, Moderate, or Hard]
 * Length (len) in roundtrip miles
 * Time (time) in hours to complete for an average hiker
-* Token (between two double-quote marks, paste the value obtained from the sign-in step). Ensure that you don't put a space in between the "token": and the token value.
+* Token (between two double-quote marks, paste the value obtained from the sign-in step). Ensure that you don't put a space in between the "token": and the token value, and also that the token is enclosed by only a single pair of quotes.
 
-This information can be found at many websites. We found the Washington Trails Association (wta.org) and Hiking With My Brother (hikingwithmybrother.com) websites to be very helpful. Here is an example using httpie (requires json format):
+This information can be found at many websites. We found the Washington Trails Association (wta.org) and Hiking With My Brother (hikingwithmybrother.com) websites to be very helpful.
+Here is an example using httpie (requires json format); you should replace "pasteTokenInHere" with your own token:
 ```bash
-> echo '{"loc":"Commonwealth Basin - Red Mtn. Pass", "lat":47.4605, "lon":121.3976, "difficulty":"hard", "length":"7.2", "time":5.5}' | http post localhost:3000/api/trails "token":"pasteTokenInHere"
+> echo '{"loc":"Commonwealth Basin - Red Mtn. Pass", "lat":47.4605, "lon":121.3976, "difficulty":"hard", "length":"7.2", "time":5.5}' | http post localhost:3000/api/trails "token":"PASTE_TOKEN_IN_HERE"
 ```
-After a successful post, the app returns an object id associated with this trail. This id is necessary to change trail information in a PUT request.
+After a successful post, the app returns a record id (\_id) associated with this trail. This id is necessary to change trail information in a future PUT request.
 
 ###PUTting new info into the db (overwrites existing document)
-A PUT request will overwrite a saved trail entirely. The syntax using httpie would be: http PUT [URL] [new info] [token]. An example:
+A PUT request will overwrite a saved trail entirely. The syntax using httpie would be: http PUT [URL, including record ID at end] [new info] [insertYourTokenHere]. An example:
 ```bash
-> http PUT localhost:3000/api/trails/:id "loc"="Commonwealth Basin - Red Mountain Trail"
+> http PUT localhost:3000/api/trails/insertYourRecordIDHere) "loc"="Commonwealth Basin - Red Mountain Trail" "token":"PASTE_TOKEN_IN_HERE"
 ```
 
-###GETting info from the db
-GET is the default in httpie, so you don't need to explicitly include it in the request. The following is an example that gets trail info from all trails in the db. It will include the three-day weather report for that location.
+###GETting info from the db (part 1)
+GET is the default in httpie, so you don't need to explicitly include it in the request. The following is an example that gets trail info from all trails in the db.
 ```bash
-> http localhost:3000/api/trails "token":"pasteTokenInHere"
+> http localhost:3000/api/trails
+```
+
+###GETting info from the db (part deux)
+The programs's "Hike Match" functionality returns all trails associated with a particular user. The following is an example that gets trail info from all trails in the db. It includes the three-day weather report for that location, and requires a token just like the POST request.
+```bash
+> http localhost:3000/api/hikematch "token":"PASTE_TOKEN_IN_HERE"
 ```
 
 ###DELETE a trail
-You might want to delete a trail from the db if you no longer want fairweatherhikers to consider it as a query option.
+You might want to delete a trail from the db if you no longer want fairweatherhikers to consider it as a query option. 
 ```bash
-> http DELETE localhost:3000/api/trails/57255294a58a7568be40b27e "loc"="Commonwealth Basin Trail" "token":"pasteTokenInHere"
+> http DELETE localhost:3000/api/trails/57255294a58a7568be40b27e "loc"="Commonwealth Basin Trail" "token":"PASTE_TOKEN_IN_HERE"
 
 ```
 
