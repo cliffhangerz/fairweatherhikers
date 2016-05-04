@@ -12,15 +12,12 @@ hikeMatchRouter.get('/hikematch', jwtAuth, (req, res) => {
   }, (err, data) => {
     if (err) return errorHandler(err, res);
 
-    var goodWeatherTrailArray = goodHike(data);
-
-    setTimeout(() => {
+    goodHike(data, res, (goodWeatherTrailArray) => {
       dataResults(goodWeatherTrailArray);
-
       res.status(200).json({
         msg: 'You found some hikes with nice weather',
         fairWeatherHikes: goodWeatherTrailArray
       });
-    }, 1000);
+    });
   });
 });

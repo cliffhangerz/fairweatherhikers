@@ -91,7 +91,7 @@ To post a new trail, use the following json format (or input an empty string). M
 
 This information can be found at many websites. We found the Washington Trails Association (wta.org) and Hiking With My Brother (hikingwithmybrother.com) websites to be very helpful. The following is an example:
 ```bash
-> echo '{"loc":"Commonwealth Basin - Red Mtn. Pass", "lat":47.4605, "lon":121.3976, "difficulty":"hard", "length":"7.2", "time":5.5}' | http post localhost:3000/api/trails "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZGQiOiI2ZGYyMjJhMWQ1ZWQ4M2IyZThhZjA5YjNhMWM5ODY3ZWJmMzRhYmU5ZTFmNzYyZGY0MTIwYTA2MmZjNjBjOGJjIiwiaWF0IjoxNDYyMDYzMTk0fQ.yBFPeZclLScPN-K_W48Xsoj7rq8fNx5QiWHZhNRmApU"
+> local"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZGQiOiI2ZGYyMjJhMWQ1ZWQ4M2IyZThhZjA5YjNhMWM5ODY3ZWJmMzRhYmU5ZTFmNzYyZGY0MTIwYTA2MmZjNjBjOGJjIiwiaWF0IjoxNDYyMDYzMTk0fQ.yBFPeZclLScPN-K_W48Xsoj7rq8fNx5QiWHZhNRmApU"
 ```
 After a successful post, the app returns an object id associated with this trail. This id is necessary to change trail information in a PUT request.
 
