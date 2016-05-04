@@ -2,13 +2,11 @@ const chai = require('chai');
 const expect = chai.expect;
 const chaiHttp = require('chai-http');
 chai.use(chaiHttp);
-// const request = chai.request;
-// const errorHandler = require(__dirname + '/../lib/db_error_handler');
+const request = chai.request;
 const mongoose = require('mongoose');
-// const Trail = require(__dirname + '/../models/trail');
-// const goodHike = require(__dirname + '/../lib/goodHike');
 const port = process.env.PORT = 6666;
 const server = require(__dirname + '/../_server');
+const User = require(__dirname + '/../models/user');
 
 const ForecastIo = require('forecastio');
 
@@ -26,6 +24,19 @@ describe('API Call test', () => {
     console.log('server on port ' + port);
   });
 
+  before((done) => {
+    var user = new User({ email: 'jimwhittaker@email.com', password: 'mteverest' });
+    user.save((err, data) => {
+      if (err) throw err;
+      this.user = data;
+      data.generateToken((err, token) => {
+        if (err) throw err;
+        this.token = token;
+        done();
+      });
+    });
+  });
+
   after((done) => {
     mongoose.connection.db.dropDatabase(() => {
       mongoose.disconnect(() => {
@@ -41,5 +52,18 @@ describe('API Call test', () => {
       expect(data.daily.data[0].precipProbability).to.be.an('number');
       done();
     });
+  });
+
+  it('should get all hikematch', (done) => {
+    var token = this.token;
+    request('localhost:' + port)
+      .get('/api/hikematch')
+      .set('token', token)
+      .end((err, res) => {
+        expect(err).to.eql(null);
+        expect(res).to.have.status(200);
+        expect('Content-Type', /json/);
+        done();
+      });
   });
 });
