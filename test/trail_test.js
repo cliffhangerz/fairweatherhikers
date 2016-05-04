@@ -70,7 +70,6 @@ describe('Trail Routing test', () => {
   });
 
   describe('Tests that need data in the database', () => {
-
     beforeEach((done) => {
       var newTrail = new Trail({ loc: 'Appalachian' });
       newTrail.save((err, data) => {

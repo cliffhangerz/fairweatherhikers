@@ -13,7 +13,6 @@ app.use('/api', trailRouter);
 app.use('/api', authRouter);
 app.use('/api', hikeMatchRouter);
 
-
 module.exports = exports = {
   server: { close: function() {
     throw new Error('Server not started yet!');
